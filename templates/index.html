@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List</title>
+</head>
+<body>
+    <h1>ToDo List</h1>
+    <form action="/add_task" method="post">
+        <input type="text" name="content" placeholder="Enter task">
+        <button type="submit">Add Task</button>
+    </form>
+    <ul>
+        {% for task in tasks %}
+            <li {% if task.done %} style="text-decoration: line-through;" {% endif %}>
+                {{ task.content }}
+                {% if not task.done %}
+                    <a href="/complete_task/{{ loop.index0 }}">Mark as Done</a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+    <form action="/clear_tasks" method="post">
+        <button type="submit">Clear All Tasks</button>
+    </form>
+</body>
+</html>
